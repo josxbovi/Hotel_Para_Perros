@@ -1,0 +1,106 @@
+[1mdiff --git a/HOTEL PRACTICA PERROS.cpp b/HOTEL PRACTICA PERROS.cpp[m
+[1mindex 2329b41..3071fac 100644[m
+[1m--- a/HOTEL PRACTICA PERROS.cpp[m	
+[1m+++ b/HOTEL PRACTICA PERROS.cpp[m	
+[36m@@ -26,6 +26,7 @@[m [mint cantDePersonas(int P, int M, int N, habitacion arreglo[][10][10]);[m
+ void checkIn(int P, int M, int N, habitacion arreglo[][10][10]);[m
+ void menu(int P, int M, int N, habitacion arreglo[][10][10]);[m
+ int verificCantidad();[m
+[32m+[m[32mvoid mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]); //personas por habitacion[m[41m [m
+ [m
+ main(){[m
+ 	system("color B0");[m
+[36m@@ -46,7 +47,8 @@[m [mvoid menu(int P, int M, int N, habitacion arreglo[][10][10]){[m
+ 	printf("\t\t\t\t\t*****HOTEL PARA PERROS****\n\n");[m
+ 	printf("1 Para mostrar disponibilidad\n");[m
+ 	printf("2 Para ingresar un huesped\n");[m
+[31m-	printf("3 Para ver la cantidad de huespedes total\n\n");[m
+[32m+[m	[32mprintf("3 Para ver la cantidad de huespedes total\n");[m
+[32m+[m	[32mprintf("4 Para ver una habitacion \n\n ");[m
+ 	scanf("%d",&opcion);[m
+ 	[m
+ 	switch(opcion){[m
+[36m@@ -71,10 +73,16 @@[m [mvoid menu(int P, int M, int N, habitacion arreglo[][10][10]){[m
+ 			printf("\n\nDesea volver al menu (1 para si): \n");[m
+ 			scanf("%d",&aux);[m
+ 			break;[m
+[32m+[m		[32mcase 4:[m
+[32m+[m			[32mmostrarPPH(P,M,N,arreglo);[m
+[32m+[m			[32mprintf("\n\nDesea volver al menu (1 para si): \n");[m
+[32m+[m			[32mscanf("%d",&aux);[m
+[32m+[m			[32mbreak;[m
+ 		default:[m
+ 			printf("Toca bien pelotudo\n");[m
+ 			aux = 1;[m
+ 			break;[m
+[32m+[m[41m		[m
+ 	}[m
+ 	}while(aux==1);[m
+ }[m
+[36m@@ -117,7 +125,7 @@[m [mvoid rellenarHotel(int P, int M, int N, habitacion arreglo[][10][10]){[m
+ [m
+ void checkIn(int P, int M, int N, habitacion arreglo[][10][10]){[m
+ 	int hp,hm,hn,cant;[m
+[31m-			[m
+[32m+[m	[32mprintf("\t\t\t**Check-In**\n\n");[m[41m		[m
+ 	do{[m
+ 		printf("\nIngresar numero de hotel: ");[m
+ 		scanf("%d",&hp);[m
+[36m@@ -137,15 +145,15 @@[m [mvoid checkIn(int P, int M, int N, habitacion arreglo[][10][10]){[m
+ 		printf("\n***Habitacion desocupada***\n ");[m
+ 		cant=verificCantidad();[m
+ 		for(int i=0;i<cant;i++){[m
+[31m-		_flushall();[m
+[31m-		printf("Ingrese el nombre del huesped %d:  ",i+1);[m
+[31m-		gets(arreglo[hp-1][hm-1][hn-1].huespedes[i].apynom);[m
+[32m+[m			[32m_flushall();[m
+[32m+[m			[32mprintf("Ingrese el nombre del huesped %d:  ",i+1);[m
+[32m+[m			[32mgets(arreglo[hp-1][hm-1][hn-1].huespedes[i].apynom);[m
+ 		}[m
+ 	arreglo[hp-1][hm-1][hn-1].ocupada=true;[m
+ 	arreglo[hp-1][hm-1][hn-1].cantHues=cant;[m
+ }[m
+ 	else{[m
+[31m-		printf("\n***Habitacion ocupada***\n\n\t");[m
+[32m+[m		[32mprintf("\n***Habitacion ocupada, ingrese otra habitacion***\n\n\t");[m
+ 		system("pause");[m
+ 	}[m
+ 	[m
+[36m@@ -172,6 +180,37 @@[m [mint verificCantidad(){[m
+ 	[m
+ }[m
+ [m
+[32m+[m[32mvoid mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){[m
+[32m+[m	[32mint hp,hm,hn;[m
+[32m+[m		[32mprintf("\t\t\t**VER HABITACION**\n\n");[m[41m		[m
+[32m+[m	[32mdo{[m
+[32m+[m		[32mprintf("\nIngresar numero de hotel: ");[m
+[32m+[m		[32mscanf("%d",&hp);[m
+[32m+[m	[32m}while(hp>P);[m
+[32m+[m[41m	[m
+[32m+[m	[32mdo{[m
+[32m+[m		[32mprintf("\nIngresar piso: ");[m
+[32m+[m		[32mscanf("%d",&hm);[m
+[32m+[m	[32m}while(hm>M);[m
+[32m+[m	[32mdo{[m
+[32m+[m		[32mprintf("\nIngresar habitacion:  ");[m
+[32m+[m		[32mscanf("%d",&hn);[m
+[32m+[m	[32m}while(hn>N);[m
+[32m+[m	[32mif(arreglo[hp-1][hm-1][hn-1].ocupada==true){[m
+[32m+[m	[32mprintf("\nHay %d huespedes\n  ",arreglo[hp-1][hm-1][hn-1].cantHues);[m
+[32m+[m	[32mfor(int i=0;i<arreglo[hp-1][hm-1][hn-1].cantHues;i++){[m
+[32m+[m		[32mputs(arreglo[hp-1][hm-1][hn-1].huespedes[i].apynom);[m
+[32m+[m		[32mprintf("\n");[m
+[32m+[m	[32m}[m[41m	[m
+[32m+[m[41m		[m
+[32m+[m	[32m}[m
+[32m+[m	[32melse{[m
+[32m+[m		[32mprintf("\nNo hay huespedes\n\n ");[m
+[32m+[m		[32msystem("pause");[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m[41m	[m
+[32m+[m[32m}[m
+ [m
+ [m
+ [m
