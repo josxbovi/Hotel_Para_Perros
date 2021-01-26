@@ -31,6 +31,7 @@ void checkOut(int P, int M, int N, habitacion arreglo[][10][10]);
 
 main(){
 	system("color B0");
+	printf("Caca");
 	habitacion habitaciones[10][10][10];
 	int Photeles=2, Mpisos=3, Nhabitaciones=4;
 	
