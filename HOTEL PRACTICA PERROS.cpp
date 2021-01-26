@@ -217,7 +217,7 @@ void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){
 	}
 	else{
 		printf("\nNo hay huespedes\n\n ");
-		system("pause");
+		//system("pause");
 	}
 	
 	
@@ -225,7 +225,7 @@ void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){
 void checkOut(int P, int M, int N, habitacion arreglo[][10][10]){
 	int hp,hm,hn,cant;
 	char CadVacia[40];
-	CadVacia[0]= '\0'; //Es una cadena vacía
+	CadVacia[0]= '\0'; //Es una cadena vacï¿½a
 	printf("\t\t\t**Check-In**\n\n");		
 	do{
 		printf("\nIngresar numero de hotel: ");
