@@ -21,28 +21,28 @@ struct habitacion{
 	int cantHues;
 };
 
-void rellenarHotel(int P, int M, int N, habitacion arreglo[][10][10]);
-void mostrarCantPersonas(int P, int M, int N, habitacion arreglo[][10][10]);
-int cantDePersonas(int P, int M, int N, habitacion arreglo[][10][10]);
-void checkIn(int P, int M, int N, habitacion arreglo[][10][10]);
-void menu(int P, int M, int N, habitacion arreglo[][10][10]);
+void mostrarCantPersonas(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
+void rellenarHotel(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
+int cantDePersonas(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
+void checkIn(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
+void menu(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
 int verificCantidad();
-void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]); //personas por habitacion 
-void checkOut(int P, int M, int N, habitacion arreglo[][10][10]);
+void mostrarPPH(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]); //personas por habitacion 
+void checkOut(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]);
 
 int main(){
+	FILE* punt;
 	system("color B0");
 	printf("Caca");
 	habitacion habitaciones[10][10][10];
 	int Photeles=2, Mpisos=3, Nhabitaciones=4;
 	
-	rellenarHotel(Photeles,Mpisos,Nhabitaciones,habitaciones);
-	menu(Photeles,Mpisos,Nhabitaciones,habitaciones);
+	menu(punt,Photeles,Mpisos,Nhabitaciones,habitaciones);
 
 
 }
 
-void menu(int P, int M, int N, habitacion arreglo[][10][10]){
+void menu(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	int opcion,aux,total, band;
 	
 	do{
@@ -57,14 +57,14 @@ void menu(int P, int M, int N, habitacion arreglo[][10][10]){
 	
 	switch(opcion){
 		case 1:
-			mostrarCantPersonas(P,M,N,arreglo);
+			mostrarCantPersonas(punt,P,M,N,arreglo);
 			printf("\n\nDesea volver al menu (1 para si): \n");
 			scanf("%d",&aux);
 			break;
 		case 2:
 			do{
-				checkIn(P,M,N,arreglo);	
-				mostrarCantPersonas(P,M,N,arreglo);
+				checkIn(punt,P,M,N,arreglo);	
+				//mostrarCantPersonas(P,M,N,arreglo);
 				printf("\n\n\t\tDesea ingresar otro huesped: 1 si\n");
 				scanf("%d",&band);
 			}while(band==1);
@@ -72,18 +72,18 @@ void menu(int P, int M, int N, habitacion arreglo[][10][10]){
 			scanf("%d",&aux);
 			break;
 		case 3:
-			total=cantDePersonas(P,M,N,arreglo);
+			total=cantDePersonas(punt,P,M,N,arreglo);
 			printf("\nCantidad de personas: %d",total);
 			printf("\n\nDesea volver al menu (1 para si): \n");
 			scanf("%d",&aux);
 			break;
 		case 4:
-			mostrarPPH(P,M,N,arreglo);
+			mostrarPPH(punt,P,M,N,arreglo);
 			printf("\n\nDesea volver al menu (1 para si): \n");
 			scanf("%d",&aux);
 			break;
 		case 5:
-			checkOut(P,M,N,arreglo);
+			checkOut(punt,P,M,N,arreglo);
 			printf("\n\nDesea volver al menu (1 para si): \n");
 			scanf("%d",&aux);
 			break;
@@ -96,7 +96,7 @@ void menu(int P, int M, int N, habitacion arreglo[][10][10]){
 	}while(aux==1);
 }
 
-void mostrarCantPersonas(int P, int M, int N, habitacion arreglo[][10][10]){
+void mostrarCantPersonas(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	system("cls");
 	for(int i=0;i<P;i++){
 		printf("\n\nHotel %d\n",i+1);
@@ -109,7 +109,7 @@ void mostrarCantPersonas(int P, int M, int N, habitacion arreglo[][10][10]){
 	}
 }
 
-int cantDePersonas(int P, int M, int N, habitacion arreglo[][10][10]){
+int cantDePersonas(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	int suma=0;
 	for(int i=0;i<P;i++){
 		for(int j=0;j<M;j++){
@@ -121,7 +121,7 @@ int cantDePersonas(int P, int M, int N, habitacion arreglo[][10][10]){
 	return suma;
 }
 
-void rellenarHotel(int P, int M, int N, habitacion arreglo[][10][10]){
+void rellenarHotel(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	for(int i=0;i<P;i++){
 		for(int j=0;j<M;j++){
 			for(int k=0;k<N;k++){
@@ -132,7 +132,7 @@ void rellenarHotel(int P, int M, int N, habitacion arreglo[][10][10]){
 	}		
 }
 
-void checkIn(int P, int M, int N, habitacion arreglo[][10][10]){
+void checkIn(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	int hp,hm,hn,cant;
 	printf("\t\t\t**Check-In**\n\n");		
 	do{
@@ -153,6 +153,9 @@ void checkIn(int P, int M, int N, habitacion arreglo[][10][10]){
 	if(arreglo[hp-1][hm-1][hn-1].ocupada==false ){
 		printf("\n***Habitacion desocupada***\n ");
 		cant=verificCantidad();
+		
+		punt = fopen("hotel.dat","a+b");
+		
 		for(int i=0;i<cant;i++){
 			_flushall();
 			printf("Ingrese el nombre del huesped %d:  ",i+1);
@@ -164,6 +167,9 @@ void checkIn(int P, int M, int N, habitacion arreglo[][10][10]){
 		}
 	arreglo[hp-1][hm-1][hn-1].ocupada=true;
 	arreglo[hp-1][hm-1][hn-1].cantHues=cant;
+
+	fwrite(&arreglo[hp-1][hm-1][hn-1], sizeof(arreglo[hp-1][hm-1][hn-1]),1,punt);
+	fclose(punt);
 }
 	else{
 		printf("\n***Habitacion ocupada, ingrese otra habitacion***\n\n\t");
@@ -193,7 +199,7 @@ int verificCantidad(){
 	
 }
 
-void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){
+void mostrarPPH(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	int hp,hm,hn;
 		printf("\t\t\t**VER HABITACION**\n\n");		
 	do{
@@ -209,6 +215,9 @@ void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){
 		printf("\nIngresar habitacion:  ");
 		scanf("%d",&hn);
 	}while(hn>N);
+
+	//fopen()
+
 	if(arreglo[hp-1][hm-1][hn-1].ocupada==true){
 	printf("\nHay %d huespedes\n  ",arreglo[hp-1][hm-1][hn-1].cantHues);
 	for(int i=0;i<arreglo[hp-1][hm-1][hn-1].cantHues;i++){
@@ -224,7 +233,7 @@ void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]){
 	
 	
 }
-void checkOut(int P, int M, int N, habitacion arreglo[][10][10]){
+void checkOut(FILE* punt,int P, int M, int N, habitacion arreglo[][10][10]){
 	int hp,hm,hn,cant;
 	char CadVacia[40];
 	CadVacia[0]= '\0'; //Es una cadena vac�a
