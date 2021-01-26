@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_DEPRECATE 1
 #include<stdlib.h>
 #include<stdio.h>
 #include<conio.h>
@@ -29,7 +30,7 @@ int verificCantidad();
 void mostrarPPH(int P, int M, int N, habitacion arreglo[][10][10]); //personas por habitacion 
 void checkOut(int P, int M, int N, habitacion arreglo[][10][10]);
 
-main(){
+int main(){
 	system("color B0");
 	printf("Caca");
 	habitacion habitaciones[10][10][10];
